@@ -1,7 +1,8 @@
 # Overview
 A simple application to perform basic crud for a user and his transactions
 
-
+# POSTMAN DOCUMENTATION
+https://documenter.getpostman.com/view/35965304/2sAXxS7BDw
 # Endpoints
 ## REST API
 
