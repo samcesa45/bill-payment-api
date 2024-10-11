@@ -24,6 +24,7 @@ class TransactionController extends Controller
     public function store(CreateTransactionApiRequest $request)
     {
         $transaction = Transaction::create($request->only('user_id','amount','status'));
+        $transaction->load('user');
         return new TransactionResource($transaction);
     }
 

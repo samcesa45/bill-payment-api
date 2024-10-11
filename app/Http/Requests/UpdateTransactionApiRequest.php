@@ -22,7 +22,7 @@ class UpdateTransactionApiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|string|max:36|exists:users,id',
+            'user_id' => 'nullable|string|max:36|exists:users,id',
             'amount' => 'required',
             'status' => 'nullable|string',
     

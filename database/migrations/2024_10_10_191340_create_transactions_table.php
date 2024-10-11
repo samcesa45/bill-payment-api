@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->decimal('amount',10,2);
-            $table->string('status');
+            $table->decimal('amount',10,2)->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
