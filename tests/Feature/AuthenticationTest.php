@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\Sanctum;
 
 class AuthenticationTest extends TestCase
 {
@@ -77,6 +78,25 @@ class AuthenticationTest extends TestCase
             ->assertJson([
                 'email' => ['The provided credentials are incorrect.']
             ]);
+    }
+
+    #[Test] 
+    public function it_logs_out_the_user()
+    {
+        $user = User::factory()->create();
+
+        //Authenticate the user using Sanctum
+        $token = $user->createToken('API TOKEN')->plainTextToken;
+       $response = $this->withHeader('Authorization','Bearer '. $token)
+                        ->postJson('/api/v1/logout');
+
+      
+
+        //Assert successful logout
+        $response->assertStatus(200)
+                ->assertJson([
+                    'message' => 'Logged out successfully'
+                ]);
     }
 
    

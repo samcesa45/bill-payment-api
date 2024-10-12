@@ -20,7 +20,7 @@ Route::name('api.')->prefix('v1')->group(function(){
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::resource('transactions',App\Http\Controllers\TransactionController::class);
-        
+        Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
     });
 
