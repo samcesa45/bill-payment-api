@@ -16,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('api.')->prefix('v1')->group(function(){
     Route::resource('users',App\Http\Controllers\UserController::class);
-    Route::resource('transactions',App\Http\Controllers\TransactionController::class);
+    Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
+
     Route::middleware('auth:sanctum')->group(function () {
+        Route::resource('transactions',App\Http\Controllers\TransactionController::class);
         
 
     });

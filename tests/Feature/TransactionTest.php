@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use Laravel\Sanctum\Sanctum;
 
 class TransactionTest extends TestCase
 {
@@ -17,6 +18,10 @@ class TransactionTest extends TestCase
     public function it_fetches_all_transactions()
     {
         $user = User::factory()->create();
+
+        //Authenticate user using Sanctum
+        Sanctum::actingAs($user);
+
         Transaction::factory()->count(3)->for($user)->create();
 
         $response =$this->getJson("/api/v1/transactions");
@@ -29,6 +34,9 @@ class TransactionTest extends TestCase
     public function it_creates_a_new_transaction(): void
     {
         $user = User::factory()->create();
+
+        //Authenticate user using Sanctum
+        Sanctum::actingAs($user);
 
         $data = [
            'user_id' => $user->id,
@@ -61,6 +69,10 @@ class TransactionTest extends TestCase
     public function it_shows_a_transaction()
     {
         $user = User::factory()->create();
+
+        //Authenticate user using Sanctum
+        Sanctum::actingAs($user);
+
         $transaction = Transaction::factory()->for($user)->create();
 
         $response = $this->getJson("/api/v1/transactions/{$transaction->id}");
@@ -79,6 +91,10 @@ class TransactionTest extends TestCase
     public function it_updates_a_transaction()
     {
         $user = User::factory()->create();
+
+        //Authenticate user using Sanctum
+        Sanctum::actingAs($user);
+        
         $transaction= Transaction::factory()->for($user)->create();
 
         $data = [
